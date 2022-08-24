@@ -6,47 +6,43 @@ class Closure {
     static void main(String[] args) {
 
         def helloWorld = {
-            "Hello World!"
+            "Hello World!\r\n"
         }
 
 
         println "Testing simple closure:"
         println helloWorld()
-        println()
 
-        //closure with parameter, you can explicitly define the parameters
-        //or use the 'it' keyword to create unary closure
+        println "closure with parameter, you can explicitly define the parameters"
+        println "or use the 'it' keyword to create unary closure\r\n"
 
         def greet = { name ->
-            name + ", Hi!"
+            name + ", Hi!\r\n"
         }
 
         def unaryGreet = {
-            it + ", Hello!"
+            it + ", Hello!\r\n"
         }
 
         println "Testing closure with parameter:"
         println greet("xyz")
-        println()
 
         println "Testing unary closure:"
         println unaryGreet("abc")
-        println()
 
-        //you can pass multiple explicitly defined parameters to a closure
+        println "you can pass multiple explicitly defined parameters to a closure\r\n"
 
         def add = { x, y ->
             x + y
         }
 
-        println "Testing multiple parameters in closure:"
-        println add(2, 2)
-        println()
+        println "Testing multiple parameters in closure: "
+        println add(2, 2) + '\r\n'
 
-        //types for the parameters can also be defined
+        println "Types for the parameters can also be defined\r\n"
 
-        //as closure return value is not typed it can
-        //return multiple types
+        println "As closure return value is not typed it can"
+        println "return multiple types\r\n"
 
         def area = { float a, float h, String shape ->
             {
@@ -60,31 +56,46 @@ class Closure {
         }
 
         println "Testing closure with typed parameters"
-        println "the return value is float:"
-        println area(4, 5, "triangle")
-        println()
+        println "the return value is float: "
+        print "area(4, 5, \"triangle\") => "
+        println area(4, 5, "triangle") + '\r\n'
 
         println "But if we call the same closure with shape"
         println "that was not defined in out closure"
-        println "it will return a String:"
-        println area(2, 7, "trapezoid")
-        println()
+        println "it will return a String: "
+        print "area(2, 7, \"trapezoid\") => "
+        println area(2, 7, "trapezoid") + '\r\n'
 
-        //with() is a method that accepts a closure
-        //and every method call or property access is
-        //appliedon the object the method was called on
+        println "with() is a method that accepts a closure"
+        println "and every method call or property access is"
+        println "applied on the object the method was called on\r\n"
         def list = [0, 1, 2, 3, 4]
 
         list.with {
-            println "Calling from with in 'with' method:"
+            print "Calling from within 'with' method: "
             println it
+            println()
             it[0] = 10
         }
 
-        println "List was modified in the method:"
-        println list
+        print "List was modified in the closure: "
+        println list + '\r\n'
+
+
+        println "Closures can be curried"
+        println "which means you can set one or more of the parameters\r\n"
+        println "left currying - left hand side parameter set"
+
+        def power = { int x, int y -> x**y }
+        def powerOfTwo = power.curry(2)
+        println "2.pow(3) = " + powerOfTwo(3) + '\r\n'
+
+        println "right currying - right hand side parameter set"
+
+        def toThePowerOfTwo = power.rcurry(2)
+
+        println "3.pow(2) = " + toThePowerOfTwo(3)
 
 
     }
-
 }
