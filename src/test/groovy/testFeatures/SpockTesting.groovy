@@ -76,6 +76,18 @@ class SpockTesting extends Specification {
         simpleClass.someMethod("value") == "stubbed"
     }
 
+    def "Mocking a class with stubbing method call closure"() {
+        given:
+        def simpleClass = Mock(SimpleClass)
+
+        simpleClass.someMethod(_) >> { String x ->
+            x.toUpperCase()
+        }
+
+        expect:
+        simpleClass.someMethod("value") == "VALUE"
+    }
+
     def "Method call verifications"() {
         given:
         def simpleClass = Mock(SimpleClass)

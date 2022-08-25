@@ -1,0 +1,4 @@
+package testFeatures
+
+class MockingStubbing {
+}
