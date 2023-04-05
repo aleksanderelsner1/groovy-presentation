@@ -3,7 +3,7 @@ package testFeatures
 import spock.lang.Specification
 
 class SpockTesting extends Specification {
-    //in spock you can name your test method with a string
+
     def "Simple addition test"() {
         given:
         def x = 1

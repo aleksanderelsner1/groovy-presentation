@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class CombinationMethods extends Specification {
 
-    def "simple combinations"() {
+    def "Get all combinations"() {
         given:
         def list = [[1, 2], [4, 5, 6]]
 
@@ -15,7 +15,7 @@ class CombinationMethods extends Specification {
         combinations == [[1, 4], [2, 4], [1, 5], [2, 5], [1, 6], [2, 6]]
     }
 
-    def "each combination"() {
+    def "Apply closure on each combination"() {
         given:
         def list = [[1, 2, 3], [5, 6, 7, 8]]
 

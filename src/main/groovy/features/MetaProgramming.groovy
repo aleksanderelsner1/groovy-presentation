@@ -3,48 +3,48 @@ package features
 class MetaProgramming {
     static void main(String[] args) {
 
-        //groovy provides a metaClass property in all of its classes
-        //metaClass is instance of ExpandoMetaClass
-        //it is a way of transforming existing classes and object instances at run time
+        println """
+        ***
+        * Each class in groovy has metaClass property which is instance of groovy.lang.ExpandoMetaClass
+        * with it you can transform existing classes and object instance at runtime
+        ***\r\n""".stripIndent()
         def human1 = new Human(age: 11, name: "John")
 
         try {
             human1.getAddress()
         } catch (MissingMethodException) {
-            println "Human class does not have the getAddress method\r\n"
+            println "Human class does not have the getAddress() method,"
         }
 
-        println "we can add the property and the method at run time to the instance of the class using metaClass"
+        println "but we can add the method at run time to the instance of the class using metaClass\r\n"
 
         human1.metaClass.getAddress << { -> "address1" }
 
-        print "Address of human1 is: "
+        print " - 'getAddress()' method of human1 returns: "
         println human1.getAddress()
         println()
 
-        println "additionaly by creating a getter method the object instance automatically"
-        println "gained an address field\r\n"
+        println "Additionally by creating a getter method the object instance automatically gained an address field\r\n"
 
-        assert human1.address == "address1"
+        print " - 'address' field of human1 returns: "
+        println human1.address
 
-        println "but this way, only the human1 instance contains the method"
-        println "and it does not contain the address field"
-        println "we can change it by modifying the Human class directly\r\n"
+        println "\r\nThis way, only the object referenced by human1 contains the method and field"
+        println "and it does not contain the address field we can change it by modifying the Human class directly\r\n"
 
         Human.class.metaClass.address = ""
 
         def human2 = new Human(age: 12, name: "Bob", address: "Prosta 20")
 
-        println "Address of human2 is: " + human2.getAddress()
+        println " - 'getAddress()' method of human1 returns: " + human2.getAddress()
 
-        println "the use of metaClass property is not only limited to our own classes"
+        println "\r\nUse of metaClass property is not only limited to our own classes, "
         println "we can also modify existing classes, for example, we can add our own"
         println "static method to String class\r\n"
 
         String.class.metaClass.static.myOwnMethod << { -> "This is my method" }
 
-        println "Value returned by my String method is: " + String.myOwnMethod()
-
+        println " - Value returned by our new String method is: " + String.myOwnMethod()
     }
 }
 

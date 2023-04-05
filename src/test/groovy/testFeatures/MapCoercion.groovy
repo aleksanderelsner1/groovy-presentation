@@ -4,32 +4,44 @@ import spock.lang.Specification
 
 class MapCoercion extends Specification {
 
-    def "Map coercion"() {
+    def "Map coercion - method"() {
         when:
-        def myAccount = [myDebt: { -100 }] as BankAccount
+        def myAccount = [getBalance: { -100 }] as BankAccount
 
         then:
-        myAccount.myDebt() == -100
-        myAccount.myName() == "name"
+        myAccount.getBalance() == -100
+        myAccount.getName() == "name"
     }
 
-    def "Adding additional methods through map coercion"() {
+    def "Map coercion = field"(){
+        when:
+        def myAccount = [name: "coerced"] as BankAccount
+
+        then:
+        myAccount.getBalance() == -10000
+        myAccount.getName() == "coerced"
+    }
+
+    def "Map coercion - additional methods"() {
         when:
         def myAccount = [extraMethod: { "test" }] as BankAccount
 
         then:
         myAccount.extraMethod() == "test"
+        myAccount.getBalance() == -10000
+        myAccount.getName() == "name"
     }
 }
 
 class BankAccount {
-    def debt = -10000
+    def balance = -10000
+    def name = "name"
 
-    def myDebt() {
-        debt
+    def getBalance() {
+        balance
     }
 
-    def myName() {
-        "name"
+    def getName() {
+        name
     }
 }

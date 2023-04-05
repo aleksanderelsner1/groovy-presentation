@@ -3,48 +3,55 @@ package features
 class DynamicTyping {
 
     static void main(String[] args) {
-        println "In groovy you do not have to explicitly define a type"
-        println "of a variable\r\n"
+        println """
+        ***
+        * 1. Dynamic Typing.
+        *   • Type of a variable does not have to be explicitly given to compiler
+        *   • Same variable can hold objects of different types
+        ***\r\n""".stripIndent()
 
         def variable = 3
 
-        println "variable is equal to ${variable} and is a type of ${variable.class}\r\n"
+        println "'variable' initialised, and is equal to ${variable}, and is a type of ${variable.class}\r\n"
 
         assert variable instanceof Integer
 
         variable = "ABCD"
 
-        println "variable is equal to ${variable} and is a type of ${variable.class}\r\n"
+        println "'variable' reassigned, and is equal to ${variable}, and is a type of ${variable.class}\r\n"
 
         assert variable instanceof String
 
         variable = 3f
 
-        println "variable is equal to ${variable} and is a type of ${variable.class}\r\n"
+        println "'variable' reassigned, and is equal to ${variable} and is a type of ${variable.class}\r\n"
 
         assert variable instanceof Float
 
-        println "Duck typing\r\n.............\r\n"
-        println "Static method quack in our DynamicTyping class"
-        println "does not know at compile time what object will be suplied"
-        println "or if the object contains given method, but it allows us"
-        println "to call this method\r\n"
+        println """
+        ***
+        * 2. Duck Typing.
+        * "If it walks like a duck and it quacks like a duck, then it must be a duck"
+        *   • static method quack() in this example at compile time has no idea,
+        *     what type of object will be supplied to it, and still allows
+        *     us to call methods on it with out information if this
+        *     object contains this method
+        ***\r\n""".stripIndent()
         def duck = new Duck()
+        def dog = new Dog()
 
-        println "result of Duck quacking is ${quack(duck)}\r\n"
-
-        println "but if we supply an object that does not contain given method"
+        println "If we supply an object that does not contain given method,"
         try {
-            def dog = new Dog()
             println quack(dog)
         } catch (MissingMethodException e) {
-            println "Missing method exception will be thrown"
+            println "missing method exception will be thrown.\r\n"
         }
+        println "And if we supply an object that has it the result will be: " + quack(duck)
 
     }
 
-    static def quack(def animal) {
-        animal.quack()
+    static def quack(def object) {
+        object.quack()
     }
 }
 
