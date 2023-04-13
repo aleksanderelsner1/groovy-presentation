@@ -45,6 +45,6 @@ class Animal {
     }
 
     boolean asBoolean() {
-        type == 'DOG' ? true : false
+        type == 'DOG'
     }
 }

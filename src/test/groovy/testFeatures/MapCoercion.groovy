@@ -9,8 +9,8 @@ class MapCoercion extends Specification {
         def myAccount = [getBalance: { -100 }] as BankAccount
 
         then:
-        myAccount.getBalance() == -100
-        myAccount.getName() == "name"
+        myAccount.balance == -100
+        myAccount.name == "name"
     }
 
     def "Map coercion = field"(){
@@ -18,8 +18,8 @@ class MapCoercion extends Specification {
         def myAccount = [name: "coerced"] as BankAccount
 
         then:
-        myAccount.getBalance() == -10000
-        myAccount.getName() == "coerced"
+        myAccount.balance == -10000
+        myAccount.name == "coerced"
     }
 
     def "Map coercion - additional methods"() {
@@ -28,20 +28,26 @@ class MapCoercion extends Specification {
 
         then:
         myAccount.extraMethod() == "test"
-        myAccount.getBalance() == -10000
-        myAccount.getName() == "name"
+        myAccount.balance == -10000
+        myAccount.name == "name"
+    }
+
+    def "List coercion"() {
+        when:
+        def human = ["John", "Paul", "Developer"] as Human
+
+        then:
+        human.fname == "John"
+        human.lname == "Paul"
+        human.occupation == "Developer"
     }
 }
 
 class BankAccount {
-    def balance = -10000
-    def name = "name"
+    int balance = -10000
+    String name = "name"
+}
 
-    def getBalance() {
-        balance
-    }
-
-    def getName() {
-        name
-    }
+class Human {
+    String fname, lname, occupation;
 }

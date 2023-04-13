@@ -3,7 +3,6 @@ import sample.SampleClassGroovy
 class Main {
     static void main(String[] args) {
         def obj = new SampleClassGroovy(name: "name", age: 22, salary: 100.50)
-        def obj2 = new SampleClassGroovy(name: "other", age: 13, salary: 0)
 
         //test getters
         assert obj.getAge() == 22
@@ -15,6 +14,7 @@ class Main {
         assert obj.getAge() == 100
 
         //test equals
+        def obj2 = new SampleClassGroovy(name: "name1", age: 23, salary: 101.00)
         assert !obj.equals(obj2)
     }
 }
